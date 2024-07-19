@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Artistas } from './models/artistas';
 import { Cancion } from './models/cancion';
@@ -43,6 +43,26 @@ export class AppController {
   @Get('artista/:id')
   obtenerArtistaPorId( @Param('id') id: number ): Artistas {
     return this.artistas.find( artista => artista.id == id );
+  }
+
+  /*  Obtener un artista por su nombre o por su país
+      artista?nombre=The Beatles&pais=Reino Unido   */
+  @Get('artista')
+  obtenerArtistaPorNombre(
+    @Query('nombre') nombre: string, 
+    @Query('pais') pais: string
+  ): Artistas {
+
+    if(nombre) {
+      return this.artistas.find( artista => artista.nombre == nombre );
+    }
+
+    if(pais) {
+      return this.artistas.find( artista => artista.pais == pais );
+    }
+
+    return null;
+
   }
 
   //Crear un artista
