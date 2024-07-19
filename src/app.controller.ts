@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Artistas } from './models/artistas';
 import { Cancion } from './models/cancion';
@@ -37,6 +37,12 @@ export class AppController {
   @Get('artistas')
   obtenerArtistas(): Artistas[] {
     return this.artistas;
+  }
+
+  //Obtener un artista por su id
+  @Get('artista/:id')
+  obtenerArtistaPorId( @Param('id') id: number ): Artistas {
+    return this.artistas.find( artista => artista.id == id );
   }
 
   //Crear un artista
