@@ -1,4 +1,4 @@
-export class Artistas {
+export class Artista {
     public id: number;
     public nombre: string;
     public biografia: string;

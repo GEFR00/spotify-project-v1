@@ -1,4 +1,4 @@
-import { Artistas } from "./artistas";
+import { Artista } from "./artista";
 
 export class Cancion {
 
@@ -8,7 +8,7 @@ export class Cancion {
     public reproducciones: number;
     public generoMusical: string;
     public duracion: number;
-    public artista: Artistas;
+    public artista: Artista;
 
     constructor(
         id: number, 
@@ -17,7 +17,7 @@ export class Cancion {
         reproducciones: number,
         generoMusical: string,
         duracion: number,
-        artista: Artistas
+        artista: Artista
     ) {
         this.id = id;
         this.nombre = nombre;

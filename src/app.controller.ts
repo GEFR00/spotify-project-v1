@@ -1,18 +1,18 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Artistas } from './models/artistas';
+import { Artista } from './models/artista';
 import { Cancion } from './models/cancion';
 
 @Controller()
 export class AppController {
 
-  artistas: Artistas[] = [];
+  artistas: Artista[] = [];
   canciones: Cancion[] = [];
 
   constructor(private readonly appService: AppService) {
 
-    let artista1 = new Artistas(1, "The Beatles", "Sin bio" , "banda", "Reino Unido", "Rock", 1000000);
-    let artista2 = new Artistas(2, "Queen", "Sin bio", "banda", "Reino Unido", "Rock", 900000);
+    let artista1 = new Artista(1, "The Beatles", "Sin bio" , "banda", "Reino Unido", "Rock", 1000000);
+    let artista2 = new Artista(2, "Queen", "Sin bio", "banda", "Reino Unido", "Rock", 900000);
 
     let cancion1 = new Cancion(1, "Hey Jude", "The Beatles", 1000000, "Rock", 7, artista1);
 
@@ -35,13 +35,13 @@ export class AppController {
 
   //Obtener todos los artistas
   @Get('artistas')
-  obtenerArtistas(): Artistas[] {
+  obtenerArtistas(): Artista[] {
     return this.artistas;
   }
 
   //Obtener un artista por su id
   @Get('artista/:id')
-  obtenerArtistaPorId( @Param('id') id: number ): Artistas {
+  obtenerArtistaPorId( @Param('id') id: number ): Artista {
     return this.artistas.find( artista => artista.id == id );
   }
 
@@ -51,7 +51,7 @@ export class AppController {
   obtenerArtistaPorNombre(
     @Query('nombre') nombre: string, 
     @Query('pais') pais: string
-  ): Artistas {
+  ): Artista {
 
     if(nombre) {
       return this.artistas.find( artista => artista.nombre == nombre );
@@ -67,7 +67,7 @@ export class AppController {
 
   //Crear un artista
   @Post('artistas')
-  crearArtista( @Body() artista: Artistas ) {
+  crearArtista( @Body() artista: Artista ) {
     artista.id = this.artistas.length + 1;
     this.artistas.push(artista);
   }
